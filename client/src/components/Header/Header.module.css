@@ -1,0 +1,17 @@
+nav {
+    background: rgba(25, 25, 25, 0.705);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 0;
+    padding-top: 0;
+    position: fixed;
+    top: 0;
+}
+
+nav > ul {
+    text-align: center;
+    margin: 0 5px;
+    color: white;
+}
