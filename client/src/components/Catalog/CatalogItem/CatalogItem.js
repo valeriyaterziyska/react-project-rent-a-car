@@ -12,7 +12,7 @@ export const CatalogItem = ({
 
           <h3>Brand:{brand} and {model}</h3>
           <span>Price per day: ${price}</span>
-
+          <button type="button" >Details</button>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 import * as carService from './services/carService'
@@ -6,7 +6,6 @@ import * as carService from './services/carService'
 import { Home } from "./components/Home/Home";
 import { Header } from "./components/Header/Header";
 import { Catalog } from "./components/Catalog/Catalog";
-import { TestDriveCatalog } from "./components/TestDriveCatalog/TestDriveCatalog";
 import { Login } from "./components/Login/Login";
 import { Register } from "./components/Register/Register";
 import {AddCar} from "./components/AddCar/AddCar";
@@ -14,6 +13,7 @@ import {AddCar} from "./components/AddCar/AddCar";
 import "./App.css";
 
 function App() {
+  const navigate = useNavigate();
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
@@ -23,6 +23,15 @@ function App() {
         setCars(result);
       })
   }, []);
+
+  const onCreateCarSubmit = async (data) => {
+    const newCar = await carService.create(data);
+
+    setCars(state => [...state, newCar]);
+    navigate('/catalog');
+
+
+  };
 
   const [auth, setAuth] = useState({});
 
@@ -44,8 +53,7 @@ function App() {
           <Route path="/catalog" element={<Catalog cars={cars}/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/add-car" element={<AddCar />} />
-          <Route path="/test-drive-catalog" element={<TestDriveCatalog />} />
+          <Route path="/add-car" element={<AddCar  onCreateCarSubmit={onCreateCarSubmit}/>} />
         </Routes>
 
       </header>
