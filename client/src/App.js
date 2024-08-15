@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AuthContext } from "./contexts/AuthContext";
+import * as carService from './services/carService'
 
 import { Home } from "./components/Home/Home";
 import { Header } from "./components/Header/Header";
@@ -13,6 +14,15 @@ import {AddCar} from "./components/AddCar/AddCar";
 import "./App.css";
 
 function App() {
+  const [cars, setCars] = useState([]);
+
+  useEffect(() => {
+    carService.getAll()
+      .then(result => {
+        setCars(result);
+      })
+  }, []);
+
   const [auth, setAuth] = useState({});
 
   const onLoginSubmit = async (data) => {
