@@ -19,6 +19,7 @@ function App() {
   useEffect(() => {
     carService.getAll()
       .then(result => {
+        console.log(result);
         setCars(result);
       })
   }, []);
@@ -40,7 +41,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/catalog" element={<Catalog cars={cars}/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/add-car" element={<AddCar />} />
