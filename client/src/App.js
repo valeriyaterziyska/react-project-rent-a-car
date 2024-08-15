@@ -8,7 +8,8 @@ import { Header } from "./components/Header/Header";
 import { Catalog } from "./components/Catalog/Catalog";
 import { Login } from "./components/Login/Login";
 import { Register } from "./components/Register/Register";
-import {AddCar} from "./components/AddCar/AddCar";
+import { AddCar } from "./components/AddCar/AddCar";
+import { CarItemDetails } from "./components/CarItemDetails/CarItemDetails"
 
 import "./App.css";
 
@@ -50,10 +51,11 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/catalog" element={<Catalog cars={cars}/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/add-car" element={<AddCar  onCreateCarSubmit={onCreateCarSubmit}/>} />
+          <Route path="/catalog" element={<Catalog cars={cars}/>} />
+          <Route path="/catalog/:carId" element={<CarItemDetails />} />
         </Routes>
 
       </header>

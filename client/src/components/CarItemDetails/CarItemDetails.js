@@ -1,24 +1,40 @@
+import { useParams } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+
+import * as carService from "../../services/carService";
+import { useEffect, useState } from "react";
+import styles from "./CarItemDetails.module.css";
+
 export const CarItemDetails = () => {
+  const { carId } = useParams();
+  const [car, setCar] = useState({});
+
+  useEffect(() => {
+    carService.getOne(carId).then((result) => {
+      setCar(result);
+    });
+  }, [carId]);
+
   return (
-    <section id="detailsPage">
-      <div id="detailsInfo">
-        <div class="info">
-          <img src="{{car.imageUrl}}" />
+    <section className={styles.detailsPage} id="detailsPage">
+      <div className={styles.detailsInfo} id="detailsInfo">
+        <div className={styles.info}>
+          <img src={car.imageUrl} />
         </div>
 
-        <div class="info">
-          <h3>Brand: Brand</h3>
-          <h3>Model: model</h3>
-          <h2>Price per day: $</h2>
+        <div className={styles.info}>
+          <h3>Brand: {car.brand}</h3>
+          <h3>Model: {car.model}</h3>
+          <h2>Price per day: ${car.price}</h2>
         </div>
 
         {/* <!--If there is user logged in--> */}
-        <div class="buttons">
-          <a class="buy-btn">Add to Test Drive Catalog</a>
-          <a class="edit-btn">Edit</a>
-          <a class="delete-btn">Delete</a>
+        <div className={styles.inbuttonsfo}>
+          <Link className={styles["edit-btn"]}>Edit</Link>
+          <Link className={styles["delete-btn"]}>Delete</Link>
 
-          <a class="back-btn">Back</a>
+          <Link to={'/catalog'} className={styles["back-btn"]}>Back</Link>
         </div>
       </div>
     </section>

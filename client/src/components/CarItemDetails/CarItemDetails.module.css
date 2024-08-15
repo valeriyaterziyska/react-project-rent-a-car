@@ -5,7 +5,7 @@
   padding-bottom: 6px;
 }
 
-#detailsInfo {
+.detailsInfo {
   display: inline-block;
   margin-top: 1%;
   background: rgba(0, 0, 0, 0.703);
@@ -13,19 +13,20 @@
   border: 1px solid white;
   border-radius: 20px;
   margin-bottom: 5%;
+  content:normal;
 }
 
-#detailsInfo h1 {
+.detailsInfo h1 {
   color: white;
   letter-spacing: 2px;
 }
 
-#detailsInfo h2 {
+.detailsInfo h2 {
   font-size: 26px;
   margin-top: 30px;
 }
 
-#detailsInfo h3 {
+.detailsInfo h3 {
   font-size: 20px;
   width: 70%;
   display: inline-block;
@@ -81,4 +82,12 @@
 .buttons a:hover {
   background-color: rgba(75, 133, 167, 0.678);
   transform: scale(1, 1.05);
+}
+
+.edit-btn,
+.delete-btn,
+.back-btn {
+  margin-left: 10px;
+  background-color: grey;
+  padding: 7px;
 }

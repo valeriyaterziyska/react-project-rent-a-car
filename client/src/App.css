@@ -168,3 +168,10 @@ h3 {
   font-size: 30px;
   border: 2px solid white;
 }
+
+.button-details {
+  display: block;
+  background-color: grey;
+  color: white;
+  
+}
