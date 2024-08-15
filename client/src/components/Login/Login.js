@@ -1,7 +1,9 @@
+import styles from "./Login.module.css";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import styles from "./Login.module.css";
+
+
 import { AuthContext } from "../../contexts/AuthContext";
 import { useForm } from "../../hooks/useForm";
 
@@ -19,7 +21,7 @@ export const Login = () => {
 
   return (
     <section className={styles.loginPage} id="loginPage">
-      <form id="loginForm" onSubmit={onSubmit}>
+      <form id="loginForm" method="POST" onSubmit={onSubmit}>
         <h2>Login Form</h2>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
