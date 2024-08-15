@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import { AuthContext } from "./contexts/AuthContext";
 
 import { Home } from "./components/Home/Home";
 import { Header } from "./components/Header/Header";
@@ -11,7 +13,17 @@ import {AddCar} from "./components/AddCar/AddCar";
 import "./App.css";
 
 function App() {
+  const [auth, setAuth] = useState({});
+
+  const onLoginSubmit = async (data) => {
+
+    console.log('on login submit', data);
+  }
+
   return (
+    <AuthContext.Provider value={{onLoginSubmit}}>
+
+    
     <div className="App">
       <header className="App-header">
         <Header />
@@ -27,6 +39,7 @@ function App() {
 
       </header>
     </div>
+    </AuthContext.Provider>
   );
 }
 
