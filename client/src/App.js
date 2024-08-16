@@ -9,6 +9,7 @@ import { Home } from "./components/Home/Home";
 import { Header } from "./components/Header/Header";
 import { Catalog } from "./components/Catalog/Catalog";
 import { Login } from "./components/Login/Login";
+import { Logout } from "./components/Logout/Logout";
 import { Register } from "./components/Register/Register";
 import { AddCar } from "./components/AddCar/AddCar";
 import { CarItemDetails } from "./components/CarItemDetails/CarItemDetails";
@@ -45,8 +46,31 @@ function App() {
     }
   };
 
+  const onRegisterSubmit = async (values) => {
+    const { confirmPassword, ...registerData } = values;
+    if (confirmPassword !== registerData.password) {
+      return;
+    }
+
+    try {
+      const result = await authService.register(registerData);
+
+      setAuth(result);
+      navigate("/login");
+    } catch (error) {
+      console.log("Error register", error);
+    }
+  };
+
+  const onLogout = async () => {
+    await authService.logout();
+    setAuth({isAuthenticated: false});
+  }
+
   const context = {
     onLoginSubmit,
+    onRegisterSubmit,
+    onLogout,
     userId: auth._id,
     token: auth.accessToken,
     userEmail: auth.email,
@@ -62,6 +86,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/register" element={<Register />} />
             <Route
               path="/add-car"

@@ -1,26 +1,16 @@
-import { useState } from "react";
+import { useForm } from "../../hooks/useForm";
 
 export const AddCar = ({ onCreateCarSubmit }) => {
-  const [values, setValues] = useState({
+  const {values, changeHandler, onSubmit} = useForm({
     brand: "",
     model: "",
     imageUrl: "",
     price: "",
-  });
-
-  const onChangeHandler = (e) => {
-    setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    onCreateCarSubmit(values);
-  };
+  }, onCreateCarSubmit);
 
   return (
     <section id="createPage">
-      <form id="createForm" onSubmit={onSubmit}>
+      <form id="createForm" method="POST" onSubmit={onSubmit}>
         <label htmlFor="brand">Brand:</label>
         <input
           type="text"
@@ -28,7 +18,7 @@ export const AddCar = ({ onCreateCarSubmit }) => {
           name="brand"
           placeholder="Brand..."
           value={values.brand}
-          onChange={onChangeHandler}
+          onChange={changeHandler}
         />
 
         <label htmlFor="model">Model:</label>
@@ -38,7 +28,7 @@ export const AddCar = ({ onCreateCarSubmit }) => {
           name="model"
           placeholder="Model..."
           value={values.model}
-          onChange={onChangeHandler}
+          onChange={changeHandler}
         />
 
         <label htmlFor="imageUrl">Image:</label>
@@ -48,7 +38,7 @@ export const AddCar = ({ onCreateCarSubmit }) => {
           name="imageUrl"
           placeholder="Image..."
           value={values.imageUrl}
-          onChange={onChangeHandler}
+          onChange={changeHandler}
         />
 
         <label htmlFor="price">Price:</label>
@@ -58,7 +48,7 @@ export const AddCar = ({ onCreateCarSubmit }) => {
           name="price"
           placeholder="Price..."
           value={values.price}
-          onChange={onChangeHandler}
+          onChange={changeHandler}
         />
 
         <button type="submit" className="create">
