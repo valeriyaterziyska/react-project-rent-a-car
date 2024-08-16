@@ -65,10 +65,15 @@ function App() {
   };
 
   const onLogout = async () => {
-    await authService.logout();
-    console.log("logout");
+    try {
+      console.log("logout");
+      await authService.logout();
 
-    setAuth({});
+      setAuth({});
+    } catch (error) {
+      console.log("Error logout", error);
+
+    }
   };
 
   const context = {
