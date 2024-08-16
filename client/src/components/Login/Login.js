@@ -2,8 +2,6 @@ import styles from "./Login.module.css";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-
-
 import { AuthContext } from "../../contexts/AuthContext";
 import { useForm } from "../../hooks/useForm";
 
@@ -26,7 +24,7 @@ export const Login = () => {
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
-            type="text"
+            type="email"
             id="email"
             placeholder="Email..."
             name={LoginFormKeys.Email}
