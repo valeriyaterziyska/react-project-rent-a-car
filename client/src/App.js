@@ -1,8 +1,8 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import * as carService from "./services/carService";
-import * as authService from "./services/authService";
+import { carServiceFactory } from "./services/carService";
+import { authServiceFactory } from "./services/authService";
 import { AuthContext } from "./contexts/AuthContext";
 
 import { Home } from "./components/Home/Home";
@@ -20,6 +20,8 @@ function App() {
   const navigate = useNavigate();
   const [cars, setCars] = useState([]);
   const [auth, setAuth] = useState({});
+  const carService = carServiceFactory(auth.accessToken);
+  const authService = authServiceFactory(auth.accessToken);
 
   useEffect(() => {
     carService.getAll().then((result) => {
@@ -64,8 +66,10 @@ function App() {
 
   const onLogout = async () => {
     await authService.logout();
-    setAuth({isAuthenticated: false});
-  }
+    console.log("logout");
+
+    setAuth({});
+  };
 
   const context = {
     onLoginSubmit,

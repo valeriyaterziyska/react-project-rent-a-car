@@ -1,22 +1,32 @@
-import * as request from "./requester";
+import { requestFactory } from "./requester";
 
-const baseUrl = "http://localhost:3030/jsonstore/cars";
+const baseUrl = "http://localhost:3030/data/cars";
 
-export const getAll = async () => {
-  const result = await request.get(baseUrl);
-  const cars = Object.values(result);
+export const carServiceFactory = (token) => {
+  const request = requestFactory(token);
 
-  return cars;
-};
+  const getAll = async () => {
+    const result = await request.get(baseUrl);
+    const cars = Object.values(result);
 
-export const getOne = async (carId) => {
-  const result = await request.get(`${baseUrl}/${carId}`);
-  console.log(result);
-  return result;
-};
+    return cars;
+  };
 
-export const create = async (data) => {
-  const result = await request.post(baseUrl, data);
-  console.log(result);
-  return result;
+  const getOne = async (carId) => {
+    const result = await request.get(`${baseUrl}/${carId}`);
+    console.log(result);
+    return result;
+  };
+
+  const create = async (data) => {
+    const result = await request.post(baseUrl, data);
+    console.log(result);
+    return result;
+  };
+
+  return {
+    getAll,
+    getOne,
+    create,
+  };
 };

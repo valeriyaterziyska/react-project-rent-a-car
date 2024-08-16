@@ -1,14 +1,15 @@
-import { useParams } from "react-router-dom";
-
-import { Link } from "react-router-dom";
-
-import * as carService from "../../services/carService";
 import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+
+
+import { carServiceFactory } from "../../services/carService";
+import { useService } from "../../hooks/useService";
 import styles from "./CarItemDetails.module.css";
 
 export const CarItemDetails = () => {
   const { carId } = useParams();
   const [car, setCar] = useState({});
+  const carService = useService(carServiceFactory);
 
   useEffect(() => {
     carService.getOne(carId).then((result) => {
