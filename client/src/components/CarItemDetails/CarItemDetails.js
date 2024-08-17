@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 
 import { carServiceFactory } from "../../services/carService";
@@ -7,15 +9,25 @@ import { useService } from "../../hooks/useService";
 import styles from "./CarItemDetails.module.css";
 
 export const CarItemDetails = () => {
+  const {userId} = useContext(AuthContext);
   const { carId } = useParams();
   const [car, setCar] = useState({});
   const carService = useService(carServiceFactory);
+  const navigate = useNavigate();
 
   useEffect(() => {
     carService.getOne(carId).then((result) => {
       setCar(result);
     });
   }, [carId]);
+
+  const isOwner = car._ownerId === userId;
+  
+  const onDeleteClick = async () => {
+    await carService.delete(car._id);
+
+    navigate('/catalog');
+  }
 
   return (
     <section className={styles.detailsPage} id="detailsPage">
@@ -31,12 +43,15 @@ export const CarItemDetails = () => {
         </div>
 
         {/* <!--If there is user logged in--> */}
-        <div className={styles.inbuttonsfo}>
+        {isOwner && (
+          <div className={styles.inbuttonsfo}>
           <Link className={styles["edit-btn"]}>Edit</Link>
-          <Link className={styles["delete-btn"]}>Delete</Link>
+          <Link className={styles["delete-btn"]} onClick={onDeleteClick}>Delete</Link>
 
           <Link to={'/catalog'} className={styles["back-btn"]}>Back</Link>
         </div>
+        )}
+        
       </div>
     </section>
   );

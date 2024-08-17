@@ -24,9 +24,12 @@ export const carServiceFactory = (token) => {
     return result;
   };
 
+  const deleteCar = (carId) => request.delete(`${baseUrl}/${carId}`);
+
   return {
     getAll,
     getOne,
     create,
+    delete: deleteCar,
   };
 };
